@@ -1,0 +1,96 @@
+.file-upload-background {
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .file-upload-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .file-upload-title {
+    color: #333;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .file-upload-label {
+    color: #555;
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  
+  input[type="file"] {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    width: 100%;
+  }
+  
+  .file-upload-btn {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  .file-upload-btn:hover {
+    background-color: #0062cc;
+  }
+  
+  .file-upload-error {
+    color: red;
+    margin-top: 10px;
+  }
+  
+  .signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .signup-text {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  
+  .signup-btn {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 5px 10px;
+    text-decoration: none;
+  }
+  
+  .signup-btn:hover {
+    background-color: #0062cc;
+  }
+  

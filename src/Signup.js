@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Signup.css';
+import Loader from './Loader'
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false)
+  const [errorText, setErrorText] = useState('')
+  const navigate = useNavigate()
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -24,8 +29,10 @@ const Signup = () => {
     setPassword(event.target.value);
   };
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true)
     const payload = {
       name: name,
       email: email,
@@ -34,14 +41,33 @@ const Signup = () => {
     };
     try {
       const response = await axios.post(
-        'http://stand-app.com/api/v2/user/signup/',
+        'http://176.9.137.77:3002/signup',
         payload
       );
-      console.log(response.data);
+      if (response.status === 200) {
+        console.log(response.data);
+        // clear the form
+        setName('');
+        setEmail('');
+        setPhone('');
+        setPassword('');
+        // redirect to the specified page
+        navigate('/');
+      } else {
+        setIsLoading(false)
+        console.log('Error:', response.status);
+        // display an error message
+        // you can use a library like react-toastify or display it in an alert
+      }
     } catch (error) {
+      setErrorText(error.response?.data?.error)
+      setIsLoading(false)
       console.log(error);
+      // display an error message
+      // you can use a library like react-toastify or display it in an alert
     }
   };
+
 
   return (
     <div className="signup-container">
@@ -91,8 +117,9 @@ const Signup = () => {
             required
           />
         </div>
+        <p className='errorText'>{errorText}</p>
         <button type="submit" className="btn btn-primary">
-          Sign Up
+          {isLoading ? <Loader /> : 'Sign Up'}
         </button>
       </form>
     </div>

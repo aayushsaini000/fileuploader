@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import Loader from './Loader'
 
 import './Login.css';
 
@@ -8,6 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorText, setErrorText] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
   const handleEmailChange = (event) => {
@@ -20,25 +22,30 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true)
     const payload = {
-      username: email,
+      email: email,
       password: password,
     };
     try {
       const response = await axios.post(
-        'https://stand-app.com/api/v2/user/login/',
+        'http://176.9.137.77:3002/login',
         payload, {
         headers: {
-          Authorization: 'Basic YmRkMTc5NTY5MmQ1NTBiMWIwY2M0YmUzZmJkN2MyMTY6ZTczYTdhNDhjNDYzNDM5Nzg1MTUyNTI4MWE4NzdkMWY='
         }
       }
       );
       if (response.status === 200) {
+        localStorage.setItem('loginData', JSON.stringify(response.data.user))
+        localStorage.setItem('isLoggedIn', true)
         navigate('/upload')
       }
+      else
+        setIsLoading(false)
     } catch (error) {
+      setIsLoading(false)
       if (error.response?.data)
-        setErrorText(error.response?.data?.detail)
+        setErrorText(error.response?.data?.error)
       console.log(error);
     }
   };
@@ -70,9 +77,9 @@ const Login = () => {
               required
             />
           </div>
-          <p>{errorText}</p>
+          <p className='errorText'>{errorText}</p>
           <button type="submit" className="btn login-btn">
-            Login
+            {isLoading ? <Loader /> : 'Login'}
           </button>
         </form>
         <div className="signup-container">

@@ -41,7 +41,7 @@ const Signup = () => {
     };
     try {
       const response = await axios.post(
-        'http://176.9.137.77:3002/signup',
+        'http://65.108.77.50:3002/signup',
         payload
       );
       if (response.status === 200) {

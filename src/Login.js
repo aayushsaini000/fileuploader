@@ -29,7 +29,7 @@ const Login = () => {
     };
     try {
       const response = await axios.post(
-        'http://176.9.137.77:3002/login',
+        'http://65.108.77.50:3002/login',
         payload, {
         headers: {
         }

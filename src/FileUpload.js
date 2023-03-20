@@ -50,7 +50,7 @@ const FileUpload = () => {
       try {
         await new Promise(resolve => setTimeout(resolve, 5000)); // wait for 5 seconds
         const response = await axios.post(
-          'http://176.9.137.77:3002/process_pdf', formData);
+          'http://65.108.77.50:3002/process_pdf', formData);
         toast("File uploaded");
         getFiles()
 
@@ -73,11 +73,17 @@ const FileUpload = () => {
 
   const getFiles = async () => {
     const response = await axios.get(
-      `http://176.9.137.77:3002/files/${loginData?.id}`);
+      `http://65.108.77.50:3002/files/${loginData?.id}`);
     setFileData(response.data)
     setFileDatas(response.data)
 
   }
+
+  useEffect(() => {
+    if (loginData) {
+      getFiles()
+    }
+  }, [loginData])
 
   const handleFileDetails = (id) => {
     navigate(`/file-info/${id}`)
@@ -156,22 +162,22 @@ const FileUpload = () => {
           </div>
         )}
 
-        <InputGroup className="w-50 p-4">
-            <Form.Control
+        <InputGroup className="w-50 p-4 m-auto">
+          <Form.Control
             style={{ width: 300 }}
             placeholder="Enter Filename...."
             onChange={(e) => handlSearch(e)}
-            />
-            <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
-          </InputGroup>
-        <div style={{ display: "flex", justifyContent: "space-between", width: 900, margin: "auto", paddingTop: 20 }}>
+          />
+          <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
+        </InputGroup>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <div style={{ display: "flex" }}>
-            <h6 style={{ marginTop: 15, paddingRight: 10 }}>Start Date</h6>
+            <h6 >Start Date</h6>
             <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-            <h6 style={{ marginTop: 15, paddingRight: 10 }}>End Date</h6>
+            <h6 >End Date</h6>
             <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
           </div>
-          <div style={{ display: "flex", justifyContent: "end", paddingRight: 110, marginTop: -20 }}>
+          <div>
             <button className='btn btn-sm btn-primary'
               onClick={(e) => handlSearch(e)}
             >Search</button>
